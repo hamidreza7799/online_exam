@@ -5,4 +5,6 @@ import ir.maktab.online_exam.domains.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface StudentRepository extends BaseRepository<Student> {
+
+    Student findByUsername(String username);
 }
