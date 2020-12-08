@@ -28,12 +28,13 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authenticationProvider(authenticationProvider);
         http.httpBasic();
-        http.formLogin().permitAll();
+        http.formLogin().loginPage("/login_page.html").permitAll();
         http.authorizeRequests()
+                .mvcMatchers("/").authenticated()
                 .mvcMatchers("/hello").hasRole("MANAGER")
-//                .mvcMatchers("/admin/*").hasRole("ADMIN")
+                .mvcMatchers("/login").permitAll()
                 .mvcMatchers("/bye", "/hola").hasRole("MANAGER")
-                .anyRequest().authenticated();
+                .mvcMatchers("/").permitAll();
     }
 
 }

@@ -11,7 +11,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @MappedSuperclass
-public abstract class User extends BaseEntity {
+public abstract class User{
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
     @Column(name = "username", unique = true)
     @NotBlank @NotEmpty @Size(min = 6, max = 25)
     private String username;
@@ -34,6 +37,14 @@ public abstract class User extends BaseEntity {
             inverseJoinColumns = {@JoinColumn(name = "fk_role")}
     )
     private Set<Role> roles = new HashSet<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;

@@ -9,8 +9,10 @@ import java.util.Set;
 
 @Entity
 @Table(name = "tbl_role")
-public class Role extends BaseEntity {
-
+public class Role{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Column(name = "title", unique = true)
     @NotNull
     private String title;
@@ -22,6 +24,13 @@ public class Role extends BaseEntity {
     )
     private Set<Operation> operations = new HashSet<>();
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
