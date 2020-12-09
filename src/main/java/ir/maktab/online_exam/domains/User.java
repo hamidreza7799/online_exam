@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+//TODO write dto for domains
 @MappedSuperclass
 public class User implements Serializable {
     @Id

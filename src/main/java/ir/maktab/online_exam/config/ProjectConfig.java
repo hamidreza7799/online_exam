@@ -33,11 +33,10 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
         //TODO fix csrf attack
         http.csrf().disable();
         http.authorizeRequests()
-                .mvcMatchers("/hello").hasRole("MANAGER")
+                .mvcMatchers("/new-register-requests/**").hasRole("MANAGER")
                 .mvcMatchers("/bye", "/hola").hasRole("MANAGER");
 //                .mvcMatchers(HttpMethod.POST, "/sign-up").permitAll()
 //                .mvcMatchers(HttpMethod.GET, "/sign-up").permitAll()
-//                .mvcMatchers("/", "/login").permitAll();
     }
 
 }

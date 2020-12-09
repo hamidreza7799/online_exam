@@ -10,6 +10,8 @@ import ir.maktab.online_exam.repositories.UserRepository;
 import ir.maktab.online_exam.services.UserService;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 public abstract class UserServiceImpl<E extends User> extends BaseServiceImpl<E, UserRepository<E>>
         implements UserService<E> {
@@ -59,5 +61,15 @@ public abstract class UserServiceImpl<E extends User> extends BaseServiceImpl<E,
                 return null;
             }
         }
+    }
+
+    @Override
+    public List<E> findByVerificationIsFalse() {
+        return this.repository.findByVerificationIsFalse();
+    }
+
+    @Override
+    public Boolean deleteByIdAndVerificationIsFalse(Long id) {
+        return this.repository.deleteByIdAndVerificationIsFalse(id) == 1;
     }
 }

@@ -8,6 +8,9 @@ import ir.maktab.online_exam.domains.User;
 import ir.maktab.online_exam.repositories.TeacherRepository;
 import ir.maktab.online_exam.repositories.UserRepository;
 
+import java.util.List;
+import java.util.Optional;
+
 public interface UserService<E extends User> extends BaseService<E, UserRepository<E>> {
 
     E findByUsername(String username);
@@ -15,6 +18,10 @@ public interface UserService<E extends User> extends BaseService<E, UserReposito
     E findByVerificationIsTrueAndUsername(String username);
 
     E signUpNewUser(String userType, String username, String password, String firstName, String lastName, String email);
+
+    List<E> findByVerificationIsFalse();
+
+    Boolean deleteByIdAndVerificationIsFalse(Long id);
 
     default E castUserToUserSubclass(User user, Class<E> destinationClass){
         User castUser;
