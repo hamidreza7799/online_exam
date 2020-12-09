@@ -24,23 +24,23 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String typeAndUsername) throws UsernameNotFoundException {
         if(typeAndUsername.length() < 8)
-            //TODO Fix type of error
+            //TODO Fix type of exception
             throw new UsernameNotFoundException("username not Found!!!");
         User user;
         String type = typeAndUsername.substring(0,2);
         String username = typeAndUsername.substring(2);
         switch (type) {
             case "M_":
-                user = managerService.findByUsername(username);
+                user = managerService.findByVerificationIsTrueAndUsername(username);
                 break;
             case "T_":
-                user = teacherService.findByUsername(username);
+                user = teacherService.findByVerificationIsTrueAndUsername(username);
                 break;
             case "S_":
-                user = studentService.findByUsername(username);
+                user = studentService.findByVerificationIsTrueAndUsername(username);
                 break;
             default:
-                //TODO Fix type of error
+                //TODO Fix type of exception
                 throw new UsernameNotFoundException("username not Found!!!");
         }
         if(user == null)

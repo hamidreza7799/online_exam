@@ -5,7 +5,5 @@ import ir.maktab.online_exam.domains.Manager;
 import ir.maktab.online_exam.domains.Teacher;
 import ir.maktab.online_exam.repositories.TeacherRepository;
 
-public interface TeacherService extends BaseService<Teacher, TeacherRepository> {
-
-    Teacher findByUsername(String username);
+public interface TeacherService extends UserService<Teacher>{
 }

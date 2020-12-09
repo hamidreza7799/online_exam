@@ -4,10 +4,11 @@ import ir.maktab.online_exam.base.domain.BaseEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "tbl_operation")
-public class Operation{
+public class Operation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

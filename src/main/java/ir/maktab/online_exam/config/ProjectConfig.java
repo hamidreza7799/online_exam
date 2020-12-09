@@ -3,6 +3,7 @@ package ir.maktab.online_exam.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -29,12 +30,14 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
         http.authenticationProvider(authenticationProvider);
         http.httpBasic();
         http.formLogin().loginPage("/login_page.html").permitAll();
+        //TODO fix csrf attack
+        http.csrf().disable();
         http.authorizeRequests()
-                .mvcMatchers("/").authenticated()
                 .mvcMatchers("/hello").hasRole("MANAGER")
-                .mvcMatchers("/login").permitAll()
-                .mvcMatchers("/bye", "/hola").hasRole("MANAGER")
-                .mvcMatchers("/").permitAll();
+                .mvcMatchers("/bye", "/hola").hasRole("MANAGER");
+//                .mvcMatchers(HttpMethod.POST, "/sign-up").permitAll()
+//                .mvcMatchers(HttpMethod.GET, "/sign-up").permitAll()
+//                .mvcMatchers("/", "/login").permitAll();
     }
 
 }

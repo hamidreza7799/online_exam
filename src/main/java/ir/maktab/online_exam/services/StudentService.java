@@ -5,7 +5,5 @@ import ir.maktab.online_exam.domains.Manager;
 import ir.maktab.online_exam.domains.Student;
 import ir.maktab.online_exam.repositories.StudentRepository;
 
-public interface StudentService extends BaseService<Student, StudentRepository> {
-
-    Student findByUsername(String username);
+public interface StudentService extends UserService<Student> {
 }

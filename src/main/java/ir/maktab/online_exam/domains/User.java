@@ -7,11 +7,12 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @MappedSuperclass
-public abstract class User{
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -30,7 +31,11 @@ public abstract class User{
     @Column(name = "email", unique = true)
     @NotNull @Email
     private String email;
-
+    @Column(name = "verification", columnDefinition = "boolean default false")
+    @NotNull
+    private Boolean verification= false;
+    @Transient
+    private String userType = "";
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tbl_user_role",
             joinColumns = {@JoinColumn(name = "fk_user")},
@@ -92,5 +97,35 @@ public abstract class User{
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Boolean getVerification() {
+        return verification;
+    }
+
+    public void setVerification(Boolean verification) {
+        this.verification = verification;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", verification=" + verification +
+                ", roles=" + roles +
+                '}';
     }
 }

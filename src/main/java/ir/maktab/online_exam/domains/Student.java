@@ -8,16 +8,5 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "tbl_student")
 public class Student extends User{
-//    @Column(name = "verification", columnDefinition = "default false")
-//    @NotNull
-//    private Boolean verification;
-//
-//
-//    public Boolean getVerification() {
-//        return verification;
-//    }
-//
-//    public void setVerification(Boolean verification) {
-//        this.verification = verification;
-//    }
+
 }

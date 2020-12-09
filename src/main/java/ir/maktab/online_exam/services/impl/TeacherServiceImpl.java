@@ -7,7 +7,7 @@ import ir.maktab.online_exam.services.TeacherService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TeacherServiceImpl extends BaseServiceImpl<Teacher, TeacherRepository> implements TeacherService {
+public class TeacherServiceImpl extends UserServiceImpl<Teacher> implements TeacherService {
 
     private final TeacherRepository repository;
 
@@ -16,8 +16,4 @@ public class TeacherServiceImpl extends BaseServiceImpl<Teacher, TeacherReposito
         this.repository = repository;
     }
 
-    @Override
-    public Teacher findByUsername(String username) {
-        return this.repository.findByUsername(username);
-    }
 }

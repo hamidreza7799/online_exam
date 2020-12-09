@@ -7,17 +7,12 @@ import ir.maktab.online_exam.services.ManagerService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ManagerServiceImpl extends BaseServiceImpl<Manager, ManagerRepository> implements ManagerService {
+public class ManagerServiceImpl extends UserServiceImpl<Manager> implements ManagerService {
 
     private final ManagerRepository repository;
 
     public ManagerServiceImpl(ManagerRepository repository) {
         super(repository);
         this.repository = repository;
-    }
-
-    @Override
-    public Manager findByUsername(String username) {
-        return this.repository.findByUsername(username);
     }
 }
