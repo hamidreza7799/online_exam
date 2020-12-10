@@ -1,5 +1,6 @@
 package ir.maktab.online_exam.config;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,11 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
     private AuthenticationProvider authenticationProvider;
 
     @Bean
+    public ModelMapper createModelMapperForDTO(){
+        return new ModelMapper();
+    }
+
+    @Bean
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
@@ -33,7 +39,7 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
         //TODO fix csrf attack
         http.csrf().disable();
         http.authorizeRequests()
-                .mvcMatchers("/new-register-requests/**").hasRole("MANAGER")
+                .mvcMatchers("/new-register-requests/**", "/courses/**").hasRole("MANAGER")
                 .mvcMatchers("/bye", "/hola").hasRole("MANAGER");
 //                .mvcMatchers(HttpMethod.POST, "/sign-up").permitAll()
 //                .mvcMatchers(HttpMethod.GET, "/sign-up").permitAll()
