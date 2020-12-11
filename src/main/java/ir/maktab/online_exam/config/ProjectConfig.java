@@ -1,9 +1,11 @@
 package ir.maktab.online_exam.config;
 
+import ir.maktab.online_exam.repositories.impl.CustomUserRepositoryImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -40,9 +42,7 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.authorizeRequests()
                 .mvcMatchers("/new-register-requests/**", "/courses/**").hasRole("MANAGER")
-                .mvcMatchers("/bye", "/hola").hasRole("MANAGER");
-//                .mvcMatchers(HttpMethod.POST, "/sign-up").permitAll()
-//                .mvcMatchers(HttpMethod.GET, "/sign-up").permitAll()
+                .mvcMatchers("/courses/*/students/*", "/courses/*/teachers/*").hasRole("MANAGER");
     }
 
 }

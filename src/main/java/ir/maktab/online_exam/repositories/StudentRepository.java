@@ -6,6 +6,6 @@ import ir.maktab.online_exam.domains.Student;
 import org.apache.catalina.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface StudentRepository extends UserRepository<Student> {
+public interface StudentRepository extends UserRepository<Student>, CustomStudentRepository {
 
 }

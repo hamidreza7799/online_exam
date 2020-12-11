@@ -1,6 +1,7 @@
 package ir.maktab.online_exam.services;
 
 import ir.maktab.online_exam.base.service.BaseService;
+import ir.maktab.online_exam.domains.DTO.UserSearchDTO;
 import ir.maktab.online_exam.domains.Manager;
 import ir.maktab.online_exam.domains.Student;
 import ir.maktab.online_exam.domains.Teacher;
@@ -22,6 +23,8 @@ public interface UserService<E extends User> extends BaseService<E, UserReposito
     List<E> findByVerificationIsFalse();
 
     Boolean deleteByIdAndVerificationIsFalse(Long id);
+
+    List<E> userAdvanceSearch(UserSearchDTO userSearchDTO);
 
     default E castUserToUserSubclass(User user, Class<E> destinationClass){
         User castUser;
