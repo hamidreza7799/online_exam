@@ -9,6 +9,7 @@ import ir.maktab.online_exam.services.TeacherService;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +89,9 @@ public class NewRegisterRequestController {
         return "This id= " + id + " Not Exists";
     }
 
-    @PostMapping("/reject/{id}")
+    @DeleteMapping("/reject/{id}")
+    @Transactional
+    //TODO read about @transactional
     public String rejectRequest(@PathVariable Long id) {
         //TODO return exception
         if (managerService.deleteByIdAndVerificationIsFalse(id)) {

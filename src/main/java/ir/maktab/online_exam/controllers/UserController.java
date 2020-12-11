@@ -51,6 +51,27 @@ public class UserController {
     @GetMapping
     public List<UserDTO> advanceSearch(@RequestBody UserSearchDTO userSearchDTO){
         List<UserDTO> result = new ArrayList<>();
+        if(userSearchDTO.getUserTypes().size() == 0){
+            result.addAll(
+                    managerService.userAdvanceSearch(userSearchDTO)
+                            .stream()
+                            .map(this::convertToUserDto)
+                            .collect(Collectors.toList())
+            );
+            result.addAll(
+                    studentService.userAdvanceSearch(userSearchDTO)
+                            .stream()
+                            .map(this::convertToUserDto)
+                            .collect(Collectors.toList())
+            );
+            result.addAll(
+                    teacherService.userAdvanceSearch(userSearchDTO)
+                            .stream()
+                            .map(this::convertToUserDto)
+                            .collect(Collectors.toList())
+            );
+            return result;
+        }
         userSearchDTO.getUserTypes().forEach(
                 type ->{
                     switch (type){

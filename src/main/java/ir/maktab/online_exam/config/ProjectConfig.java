@@ -42,7 +42,8 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.authorizeRequests()
                 .mvcMatchers("/new-register-requests/**", "/courses/**").hasRole("MANAGER")
-                .mvcMatchers("/courses/*/students/*", "/courses/*/teachers/*").hasRole("MANAGER");
+                .mvcMatchers("/courses/*/students/*", "/courses/*/teachers/*").hasRole("MANAGER")
+                .mvcMatchers("/users**").authenticated();
     }
 
 }
