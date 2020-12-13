@@ -30,13 +30,18 @@ public class Course implements Serializable {
     @ManyToOne
     @JoinColumn(name = "fk_teacher")
     private Teacher teacher;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "course_student",
             joinColumns = {@JoinColumn(name = "fk_course")},
             inverseJoinColumns = {@JoinColumn(name = "fk_studnet")}
     )
     private Set<Student> students = new HashSet<>();
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Exam> exams = new HashSet<>();
+
+
+
 
     public Long getId() {
         return id;
@@ -84,6 +89,14 @@ public class Course implements Serializable {
 
     public void setStudents(Set<Student> students) {
         this.students = students;
+    }
+
+    public Set<Exam> getExams() {
+        return exams;
+    }
+
+    public void setExams(Set<Exam> exams) {
+        this.exams = exams;
     }
 
     @Override

@@ -74,4 +74,6 @@ public class CourseDTO implements Serializable {
                 ", endDate='" + endDate + '\'' +
                 '}';
     }
+
+
 }
