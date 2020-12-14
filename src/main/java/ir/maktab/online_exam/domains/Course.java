@@ -11,6 +11,14 @@ import java.util.Set;
 
 @Entity
 @Table(name = "tbl_course")
+@NamedEntityGraphs({
+        @NamedEntityGraph(
+                name = "getCourseTeacher",
+                attributeNodes = {
+                        @NamedAttributeNode(value = "teacher")
+                }
+        )
+})
 public class Course implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -9,6 +9,7 @@ import ir.maktab.online_exam.repositories.ManagerRepository;
 import ir.maktab.online_exam.repositories.UserRepository;
 import ir.maktab.online_exam.services.UserService;
 
+import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -71,5 +72,10 @@ public abstract class UserServiceImpl<E extends User> extends BaseServiceImpl<E,
     @Override
     public Boolean deleteByIdAndVerificationIsFalse(Long id) {
         return this.repository.deleteByIdAndVerificationIsFalse(id) == 1;
+    }
+
+    @Override
+    public Optional<E> findByIdAndVerificationIsTrue(Long id) {
+        return repository.findByIdAndVerificationIsTrue(id);
     }
 }

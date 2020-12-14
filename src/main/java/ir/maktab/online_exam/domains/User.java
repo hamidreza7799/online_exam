@@ -13,6 +13,7 @@ import java.util.Set;
 
 //TODO write dto for domains
 @MappedSuperclass
+//TODO WRITE ENTITY GRAPH HERE(DYNAMIC ENTITY GRAPH)
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -37,7 +38,8 @@ public class User implements Serializable {
     private Boolean verification= false;
     @Transient
     private String userType = "";
-    @ManyToMany(fetch = FetchType.EAGER)
+
+    @ManyToMany
     @JoinTable(name = "tbl_user_role",
             joinColumns = {@JoinColumn(name = "fk_user")},
             inverseJoinColumns = {@JoinColumn(name = "fk_role")}

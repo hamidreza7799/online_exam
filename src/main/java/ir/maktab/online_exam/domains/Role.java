@@ -18,7 +18,7 @@ public class Role implements Serializable {
     @NotNull
     private String title;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "tbl_role_operations",
             joinColumns = {@JoinColumn(name = "fk_role")},
             inverseJoinColumns = {@JoinColumn(name = "fk_operation")}

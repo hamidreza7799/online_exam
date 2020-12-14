@@ -60,7 +60,7 @@ public class CourseController {
         Optional<Course> course = courseService.findById(courseId);
         if(course.isEmpty())
             return ResponseEntity.badRequest().body("Course id not found");
-        Optional<Teacher> teacher = teacherService.findById(teacherId);
+        Optional<Teacher> teacher = teacherService.findByIdAndVerificationIsTrue(teacherId);
         if(teacher.isEmpty())
             return ResponseEntity.badRequest().body("Teacher id not found");
 
@@ -76,7 +76,7 @@ public class CourseController {
         Optional<Course> course = courseService.findById(courseId);
         if(course.isEmpty())
             return ResponseEntity.badRequest().body("Course id not found");
-        Optional<Student> student = studentService.findById(studentId);
+        Optional<Student> student = studentService.findByIdAndVerificationIsTrue(studentId);
         if(student.isEmpty())
             return ResponseEntity.badRequest().body("Student id not found");
 

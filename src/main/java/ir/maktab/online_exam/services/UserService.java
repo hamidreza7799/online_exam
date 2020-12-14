@@ -26,6 +26,8 @@ public interface UserService<E extends User> extends BaseService<E, UserReposito
 
     List<E> userAdvanceSearch(UserSearchDTO userSearchDTO);
 
+    Optional<E> findByIdAndVerificationIsTrue(Long id);
+
     default E castUserToUserSubclass(User user, Class<E> destinationClass){
         User castUser;
         if(destinationClass.equals(Manager.class))
