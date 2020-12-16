@@ -1,4 +1,4 @@
-package ir.maktab.online_exam.repositories;
+package ir.maktab.online_exam.repositories.custom;
 
 import ir.maktab.online_exam.domains.DTO.UserSearchDTO;
 import ir.maktab.online_exam.domains.Manager;

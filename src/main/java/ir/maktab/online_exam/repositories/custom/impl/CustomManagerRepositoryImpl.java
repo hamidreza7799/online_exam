@@ -1,10 +1,9 @@
-package ir.maktab.online_exam.repositories.impl;
+package ir.maktab.online_exam.repositories.custom.impl;
 
 import ir.maktab.online_exam.domains.DTO.UserSearchDTO;
-import ir.maktab.online_exam.domains.Student;
-import ir.maktab.online_exam.domains.Teacher;
+import ir.maktab.online_exam.domains.Manager;
 import ir.maktab.online_exam.domains.User;
-import ir.maktab.online_exam.repositories.CustomStudentRepository;
+import ir.maktab.online_exam.repositories.custom.CustomManagerRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -17,15 +16,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class CustomStudentRepositoryImpl implements CustomStudentRepository {
+public class CustomManagerRepositoryImpl implements CustomManagerRepository {
 
     //TODO what is persistence context
     @PersistenceContext
     EntityManager entityManager;
 
     @Override
-    public List<Student> studentAdvanceSearch(UserSearchDTO userSearchDTO) {
-        return doUserAdvanceSearch(userSearchDTO, Student.class);
+    public List<Manager> managerAdvanceSearch(UserSearchDTO userSearchDTO) {
+        return doUserAdvanceSearch(userSearchDTO, Manager.class);
     }
 
     private <E extends User> List<E> doUserAdvanceSearch(UserSearchDTO userSearchDTO, Class<E> destinationClass){

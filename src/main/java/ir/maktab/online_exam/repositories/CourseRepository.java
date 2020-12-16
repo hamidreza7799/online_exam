@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.EntityGraph;
 
 import java.util.List;
 
-public interface CourseRepository extends BaseRepository<Course> {
+public interface CourseRepository extends BaseRepository<Course>{
     @Override
     @EntityGraph(value = "getCourseTeacher", type = EntityGraph.EntityGraphType.FETCH)
     List<Course> findAll();

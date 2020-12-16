@@ -15,21 +15,21 @@ public class Exam implements Serializable {
     @NotEmpty @NotBlank
     private String title;
     @Column(name = "description")
-    @Max(value = 2048)
+    @Size(max = 4096)
     private String description;
-    @Column(name = "time(minutes)")
-    @NotNull //TODO check time > 0
+    @Column(name = "time")
+    @NotNull
     private Long time;
     @Column(name = "start_date")
     @NotNull
     private LocalDateTime startDateTime;
     @Column(name = "end_date")
-    @NotNull //TODO check endDate > startDate
+    @NotNull
     private LocalDateTime endDateTime;
 
     @ManyToOne
     @JoinColumn(name = "fk_course")
-    @NotNull //TODO NotNull or optional = false
+    @NotNull
     private Course course;
 
 

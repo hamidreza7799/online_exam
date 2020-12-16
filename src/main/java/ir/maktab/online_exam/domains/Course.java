@@ -17,6 +17,12 @@ import java.util.Set;
                 attributeNodes = {
                         @NamedAttributeNode(value = "teacher")
                 }
+        ),
+        @NamedEntityGraph(
+                name = "getCourseExams",
+                attributeNodes = {
+                        @NamedAttributeNode(value = "exams")
+                }
         )
 })
 public class Course implements Serializable {

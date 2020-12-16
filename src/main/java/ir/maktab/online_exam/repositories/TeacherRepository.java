@@ -1,10 +1,7 @@
 package ir.maktab.online_exam.repositories;
 
-import ir.maktab.online_exam.base.repository.BaseRepository;
-import ir.maktab.online_exam.domains.Manager;
 import ir.maktab.online_exam.domains.Teacher;
+import ir.maktab.online_exam.repositories.custom.CustomTeacherRepository;
 
-import java.util.List;
-
-public interface TeacherRepository extends UserRepository<Teacher>, CustomTeacherRepository{
+public interface TeacherRepository extends UserRepository<Teacher>, CustomTeacherRepository {
 }

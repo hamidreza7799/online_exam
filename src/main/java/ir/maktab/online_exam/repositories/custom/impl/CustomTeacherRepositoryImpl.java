@@ -1,10 +1,9 @@
-package ir.maktab.online_exam.repositories.impl;
+package ir.maktab.online_exam.repositories.custom.impl;
 
 import ir.maktab.online_exam.domains.DTO.UserSearchDTO;
-import ir.maktab.online_exam.domains.Manager;
 import ir.maktab.online_exam.domains.Teacher;
 import ir.maktab.online_exam.domains.User;
-import ir.maktab.online_exam.repositories.CustomTeacherRepository;
+import ir.maktab.online_exam.repositories.custom.CustomTeacherRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
