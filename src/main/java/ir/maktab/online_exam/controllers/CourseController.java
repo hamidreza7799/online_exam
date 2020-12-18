@@ -18,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.text.ParseException;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -105,6 +106,17 @@ public class CourseController {
                 .stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("/{userId}")
+    public List<CourseDTO> sendUserCourses(@PathVariable Long userId){
+        Optional<Teacher> teacher = teacherService.findById(userId);
+        if(teacher.isPresent())
+            return teacher.get().getCourses().stream().map(this::convertToDto).collect(Collectors.toList());
+        Optional<Student> student = studentService.findById(userId);
+        if(student.isPresent())
+            return student.get().getCourses().stream().map(this::convertToDto).collect(Collectors.toList());
+        return new ArrayList<>();
     }
 
     private CourseDTO convertToDto(Course course){

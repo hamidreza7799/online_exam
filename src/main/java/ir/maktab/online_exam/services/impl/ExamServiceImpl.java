@@ -23,8 +23,8 @@ public class ExamServiceImpl extends BaseServiceImpl<Exam, ExamRepository> imple
         if(exam.getStartDateTime().isAfter(exam.getEndDateTime()) || exam.getEndDateTime().isEqual(exam.getStartDateTime()))
             //TODO RETURN EXCEPTION
             return null;
-        if(exam.getStartDateTime().isBefore(LocalDateTime.now()))
-            //TODO RETURN EXCEPTION
+        if(Duration.between(LocalDateTime.now(), exam.getStartDateTime()).toMinutes() < 1)
+            //TODO RETURN EXCEPTION, FIX DURATION BETWEEN START-TIME AND NOW
             return null;
         if(Duration.between(exam.getStartDateTime(), exam.getEndDateTime()).toMinutes() < exam.getTime())
             //TODO RETURN EXCEPTION

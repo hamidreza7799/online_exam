@@ -87,13 +87,19 @@
         var typeAndUsername = $('#role').val() + $('#username').val()
         var password = $('#password').val();
         $.ajax({
-            type:'GET',
-            url:"http://localhost:8080/",
+            type:'POST',
+            url:"http://localhost:8080/login",
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Authorization", "Basic " + btoa(typeAndUsername + ":" + password))
             },
-            success:function () {
-                console.log("success")
+            success:function (userData) {
+                window.localStorage.setItem("userId" , userData.id)
+                window.localStorage.setItem("username" , userData.username)
+                window.localStorage.setItem("firstName" , userData.firstName)
+                window.localStorage.setItem("lastName" , userData.lastName)
+                window.localStorage.setItem("email" , userData.email)
+                window.localStorage.setItem("userType" , userData.userType)
+                window.location.replace("http://localhost:8080/home-page")
             },
             error:function (data) {
                 console.log("error")

@@ -12,7 +12,7 @@ import ir.maktab.online_exam.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/sign-up")
 public class SignUpController {
     private final ManagerService managerService;
@@ -25,7 +25,7 @@ public class SignUpController {
         this.studentService = studentService;
     }
 
-    @PostMapping @ResponseBody
+    @PostMapping
     public String signUp(@RequestBody User receivedUser){
         //TODO return spring exception
         //TODO return essential message for uniq constraints like username
@@ -40,8 +40,4 @@ public class SignUpController {
         return "success";
     }
 
-    @GetMapping
-    public String signUp(){
-        return "signup_page";
-    }
 }
