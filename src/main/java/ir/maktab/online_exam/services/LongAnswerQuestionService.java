@@ -1,4 +1,6 @@
 package ir.maktab.online_exam.services;
 
-public interface LongAnswerQuestionService extends QuestionService{
+import ir.maktab.online_exam.domains.LongAnswerQuestion;
+
+public interface LongAnswerQuestionService extends QuestionService<LongAnswerQuestion> {
 }

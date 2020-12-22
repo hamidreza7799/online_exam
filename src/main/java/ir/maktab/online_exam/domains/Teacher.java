@@ -11,8 +11,8 @@ public class Teacher extends User{
     @OneToMany(mappedBy = "teacher")
     private Set<Course> courses = new HashSet<>();
 
-    @OneToMany(mappedBy = "ownerTeacher", cascade = CascadeType.ALL)
-    private Set<Question> questions = new HashSet<>();
+//    @OneToMany(mappedBy = "ownerTeacher", cascade = CascadeType.ALL)
+//    private Set<Question> questions = new HashSet<>();
 
     public Set<Course> getCourses() {
         return courses;
@@ -22,11 +22,11 @@ public class Teacher extends User{
         this.courses = courses;
     }
 
-    public Set<Question> getQuestions() {
-        return questions;
-    }
-
-    public void setQuestions(Set<Question> questions) {
-        this.questions = questions;
-    }
+//    public Set<Question> getQuestions() {
+//        return questions;
+//    }
+//
+//    public void setQuestions(Set<Question> questions) {
+//        this.questions = questions;
+//    }
 }

@@ -39,38 +39,41 @@ public class LoginController {
     public ResponseEntity<UserDTO> loginProcess(HttpSession session) {
         //TODO LEARN ABOUT SESSION AND ENUMERATION OF STRING
         //Enumeration<String> attributes = session.getAttributeNames();
+        UserDTO currentUserDTO;
         SecurityContext securityContext = (SecurityContext) session.getAttribute("SPRING_SECURITY_CONTEXT");
         Authentication authentication = securityContext.getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             List<GrantedAuthority> authorities = (List<GrantedAuthority>) authentication.getAuthorities();
             String role = authorities.get(0).toString();
-            if(role.equals("ROLE_MANAGER"))
-                return ResponseEntity.ok(
-                        this.convertToDTO(
-                                managerService
-                                        .findByUsername((String) authentication.getPrincipal()), "M_"
-                        )
-                );
-            if(role.equals("ROLE_TEACHER"))
-                return ResponseEntity.ok(
-                        this.convertToDTO(
-                                teacherService
-                                        .findByUsername((String) authentication.getPrincipal()), "T_"
-                        )
-                );
-            if(role.equals("ROLE_STUDENT"))
-                return ResponseEntity.ok(
-                        this.convertToDTO(
-                                studentService
-                                        .findByUsername((String) authentication.getPrincipal()), "S_"
-                        )
-                );
+            if (role.equals("ROLE_MANAGER")) {
+                currentUserDTO = this.convertToDTO(
+                        managerService
+                                .findByUsername((String) authentication.getPrincipal()), "M_");
+                session.setAttribute("userType", "MANAGER");
+            }
+            else if (role.equals("ROLE_TEACHER")){
+                currentUserDTO = this.convertToDTO(
+                        teacherService
+                                .findByUsername((String) authentication.getPrincipal()), "T_");
+                session.setAttribute("userType", "TEACHER");
+            }
+            else if (role.equals("ROLE_STUDENT")){
+                currentUserDTO = this.convertToDTO(
+                        studentService
+                                .findByUsername((String) authentication.getPrincipal()), "S_");
+                session.setAttribute("userType", "STUDENT");
+            }else {
+                return ResponseEntity.unprocessableEntity().build();
+            }
+            session.setAttribute("userId", currentUserDTO.getId());
+            return ResponseEntity.ok(currentUserDTO);
         }
         return ResponseEntity.badRequest().build();
     }
 
-    public UserDTO convertToDTO(User user, String userType) {
+    private UserDTO convertToDTO(User user, String userType) {
         user.setUserType(userType);
         return modelMapper.map(user, UserDTO.class);
     }
+
 }

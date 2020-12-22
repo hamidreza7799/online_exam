@@ -1,4 +1,6 @@
 package ir.maktab.online_exam.services;
 
-public interface MultipleChoiceQuestionService extends QuestionService{
+import ir.maktab.online_exam.domains.MultipleChoiceQuestion;
+
+public interface MultipleChoiceQuestionService extends QuestionService<MultipleChoiceQuestion> {
 }

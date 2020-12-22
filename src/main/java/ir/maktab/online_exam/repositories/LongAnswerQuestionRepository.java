@@ -1,4 +1,6 @@
 package ir.maktab.online_exam.repositories;
 
-public interface LongAnswerQuestionRepository extends QuestionRepository{
+import ir.maktab.online_exam.domains.LongAnswerQuestion;
+
+public interface LongAnswerQuestionRepository extends QuestionRepository<LongAnswerQuestion> {
 }

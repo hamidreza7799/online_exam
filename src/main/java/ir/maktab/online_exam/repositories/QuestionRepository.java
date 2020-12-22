@@ -3,11 +3,12 @@ package ir.maktab.online_exam.repositories;
 import ir.maktab.online_exam.base.repository.BaseRepository;
 import ir.maktab.online_exam.domains.Question;
 import ir.maktab.online_exam.domains.Teacher;
+import org.springframework.data.repository.NoRepositoryBean;
 
 import java.util.Set;
 
-public interface QuestionRepository extends BaseRepository<Question> {
+@NoRepositoryBean
+public interface QuestionRepository<E extends Question> extends BaseRepository<E> {
 
-    Set<Question> findByOwnerTeacherId(Long ownerId);
-
+    Set<E> findByOwnerTeacherId(Long ownerId);
 }

@@ -1,5 +1,7 @@
 package ir.maktab.online_exam.domains;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -7,11 +9,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-@Table(name = "long_answer_question")
+@Table(name = "long_answer")
 public class LongAnswerQuestion extends Question{
     @Column(name = "answer_text")
-    @NotBlank
-    @NotEmpty
+//    @NotBlank
+//    @NotEmpty
     private String answerText;
 
     public String getAnswerText() {

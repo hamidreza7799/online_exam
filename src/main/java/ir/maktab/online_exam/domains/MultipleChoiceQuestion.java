@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "multiple_choice_question")
+@Table(name = "tbl_multiple_choice_question")
 @NamedEntityGraphs({
         @NamedEntityGraph(
                 name = "getQuestionChoices",

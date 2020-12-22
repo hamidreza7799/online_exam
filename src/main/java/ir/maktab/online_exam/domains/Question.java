@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "tbl_question")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Question implements Serializable {
     @Id
@@ -48,5 +49,13 @@ public class Question implements Serializable {
 
     public void setQuestionText(String questionText) {
         this.questionText = questionText;
+    }
+
+    public Teacher getOwnerTeacher() {
+        return ownerTeacher;
+    }
+
+    public void setOwnerTeacher(Teacher ownerTeacher) {
+        this.ownerTeacher = ownerTeacher;
     }
 }
