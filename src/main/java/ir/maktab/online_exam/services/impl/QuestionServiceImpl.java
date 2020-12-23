@@ -1,6 +1,7 @@
 package ir.maktab.online_exam.services.impl;
 
 import ir.maktab.online_exam.base.service.impl.BaseServiceImpl;
+import ir.maktab.online_exam.domains.DTO.QuestionDTO;
 import ir.maktab.online_exam.domains.Question;
 import ir.maktab.online_exam.domains.Teacher;
 import ir.maktab.online_exam.repositories.QuestionRepository;
@@ -12,8 +13,9 @@ import javax.servlet.http.HttpSession;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-public abstract class QuestionServiceImpl<E extends Question> extends BaseServiceImpl<E, QuestionRepository<E>> implements QuestionService<E> {
+public abstract class QuestionServiceImpl<E extends Question, DTO extends QuestionDTO> extends BaseServiceImpl<E, QuestionRepository<E>> implements QuestionService<E, DTO> {
     protected final QuestionRepository<E> repository;
     protected final TeacherService teacherService;
 
@@ -24,9 +26,11 @@ public abstract class QuestionServiceImpl<E extends Question> extends BaseServic
     }
 
     @Override
-    public Set<E> findByOwnerTeacherId(HttpSession session) {
+    public Set<DTO> findByOwnerTeacherId(HttpSession session) {
         if(session.getAttribute("userId") != null)
-            return this.repository.findByOwnerTeacherId((Long) session.getAttribute("userId"));
+            return this.repository
+                    .findByOwnerTeacherId((Long) session.getAttribute("userId"))
+                    .stream().map(this::convertToDTO).collect(Collectors.toSet());
         else
             return new HashSet<>();
     }
@@ -44,8 +48,7 @@ public abstract class QuestionServiceImpl<E extends Question> extends BaseServic
         return ResponseEntity.ok("Question delete.");
     }
 
-    @Override
-    public ResponseEntity<String> save(E question, HttpSession session) {
+    protected ResponseEntity<String> save(E question, HttpSession session) {
         if(question.getQuestionText() == null || question.getQuestionText().isEmpty() || question.getQuestionText().isBlank())
             return ResponseEntity.badRequest().body("Question text should not empty or blank");
         //new question

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -36,43 +37,21 @@ public class QuestionController {
     public List<QuestionDTO> getTeacherQuestions(HttpSession session) {
         //TODO RETURN ESSENTIAL EXCEPTION
         List<QuestionDTO> result = new ArrayList<>();
-        result.addAll(
-                multipleChoiceQuestionService
-                        .findByOwnerTeacherId(session)
-                        .stream()
-                        .map(this::convertToMultipleChoiceQuestionDTO)
-                        .collect(Collectors.toList())
-        );
-        result.addAll(
-                longAnswerQuestionService
-                        .findByOwnerTeacherId(session)
-                        .stream()
-                        .map(this::convertToLongAnswerQuestionDTO)
-                        .collect(Collectors.toList())
-        );
+        result.addAll(multipleChoiceQuestionService.findByOwnerTeacherId(session));
+        result.addAll(longAnswerQuestionService.findByOwnerTeacherId(session));
         return result;
     }
 
     @GetMapping("/multiple-choice")
-    public List<MultipleChoiceQuestionDTO> getTeacherMultipleChoiceQuestions(HttpSession session) {
+    public Set<MultipleChoiceQuestionDTO> getTeacherMultipleChoiceQuestions(HttpSession session) {
         //TODO RETURN ESSENTIAL EXCEPTION
-        return multipleChoiceQuestionService
-                .findByOwnerTeacherId(session)
-                .stream()
-                .map(this::convertToMultipleChoiceQuestionDTO)
-                .collect(Collectors.toList());
-
+        return multipleChoiceQuestionService.findByOwnerTeacherId(session);
     }
 
     @GetMapping("/long-answer")
-    public List<LongAnswerQuestionDTO> getTeacherLongAnswerQuestions(HttpSession session) {
+    public Set<LongAnswerQuestionDTO> getTeacherLongAnswerQuestions(HttpSession session) {
         //TODO RETURN ESSENTIAL EXCEPTION
-        return longAnswerQuestionService
-                        .findByOwnerTeacherId(session)
-                        .stream()
-                        .map(this::convertToLongAnswerQuestionDTO)
-                        .collect(Collectors.toList());
-
+        return longAnswerQuestionService.findByOwnerTeacherId(session);
     }
 
     @DeleteMapping("/{questionId}")
@@ -87,38 +66,25 @@ public class QuestionController {
     }
 
     @PostMapping("/multiple-choice")
-    public ResponseEntity<String> createNewMultipleChoiceQuestion(MultipleChoiceQuestionDTO questionDTO, HttpSession session){
-        return multipleChoiceQuestionService.save(this.convertToMultipleChoiceQuestionEntity(questionDTO), session);
+    public ResponseEntity<String> createNewMultipleChoiceQuestion(@RequestBody MultipleChoiceQuestionDTO questionDTO, HttpSession session){
+        return multipleChoiceQuestionService.save(questionDTO, session);
     }
 
     @PostMapping("/long-answer")
-    public ResponseEntity<String> createNewLongAnswerQuestion(LongAnswerQuestionDTO questionDTO, HttpSession session){
-        return longAnswerQuestionService.save(this.convertToLongAnswerQuestionEntity(questionDTO), session);
+    public ResponseEntity<String> createNewLongAnswerQuestion(@RequestBody LongAnswerQuestionDTO questionDTO, HttpSession session){
+        return longAnswerQuestionService.save(questionDTO, session);
     }
 
     @PutMapping("/multiple-choice")
-    public ResponseEntity<String> updateQuestion(MultipleChoiceQuestionDTO questionDTO, HttpSession session) {
-        return multipleChoiceQuestionService.save(this.convertToMultipleChoiceQuestionEntity(questionDTO), session);
+    public ResponseEntity<String> updateQuestion(@RequestBody MultipleChoiceQuestionDTO questionDTO, HttpSession session) {
+        return multipleChoiceQuestionService.save(questionDTO, session);
     }
 
     @PutMapping("/long-answer")
-    public ResponseEntity<String> updateQuestion(LongAnswerQuestionDTO questionDTO, HttpSession session) {
-        return longAnswerQuestionService.save(this.convertToLongAnswerQuestionEntity(questionDTO), session);
+    public ResponseEntity<String> updateQuestion(@RequestBody LongAnswerQuestionDTO questionDTO, HttpSession session) {
+        return longAnswerQuestionService.save(questionDTO, session);
     }
 
-    private MultipleChoiceQuestion convertToMultipleChoiceQuestionEntity(MultipleChoiceQuestionDTO multipleChoiceQuestionDTO) {
-        return modelMapper.map(multipleChoiceQuestionDTO, MultipleChoiceQuestion.class);
-    }
 
-    private MultipleChoiceQuestionDTO convertToMultipleChoiceQuestionDTO(MultipleChoiceQuestion multipleChoiceQuestion) {
-        return modelMapper.map(multipleChoiceQuestion, MultipleChoiceQuestionDTO.class);
-    }
 
-    private LongAnswerQuestion convertToLongAnswerQuestionEntity(LongAnswerQuestionDTO longAnswerQuestionDTO) {
-        return modelMapper.map(longAnswerQuestionDTO, LongAnswerQuestion.class);
-    }
-
-    private LongAnswerQuestionDTO convertToLongAnswerQuestionDTO(LongAnswerQuestion longAnswerQuestion) {
-        return modelMapper.map(longAnswerQuestion, LongAnswerQuestionDTO.class);
-    }
 }

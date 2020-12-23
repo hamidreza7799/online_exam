@@ -11,6 +11,14 @@ import java.io.Serializable;
 @Entity
 @Table(name = "tbl_question")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@NamedEntityGraphs({
+        @NamedEntityGraph(
+                name = "getOwnerTeacher",
+                attributeNodes = {
+                        @NamedAttributeNode(value = "ownerTeacher")
+                }
+        )
+})
 public class Question implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

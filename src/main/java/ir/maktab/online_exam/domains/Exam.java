@@ -4,9 +4,12 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tbl_exam")
+//TODO WRITE GRAPH IN TAKE EXAM
 public class Exam implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +35,10 @@ public class Exam implements Serializable {
     @NotNull
     private Course course;
 
+
+    @OneToMany(mappedBy = "exam", cascade = CascadeType.ALL)
+    @NotEmpty
+    private Set<ExamQuestion> examQuestions = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -87,6 +94,14 @@ public class Exam implements Serializable {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public Set<ExamQuestion> getExamQuestions() {
+        return examQuestions;
+    }
+
+    public void setExamQuestions(Set<ExamQuestion> examQuestionSet) {
+        this.examQuestions = examQuestionSet;
     }
 
     @Override
