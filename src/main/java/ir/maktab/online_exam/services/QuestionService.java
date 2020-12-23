@@ -13,5 +13,7 @@ public interface QuestionService<E extends Question> extends BaseService<E, Ques
 
     Set<E> findByOwnerTeacherId(HttpSession session);
 
+    ResponseEntity<String> save(E question, HttpSession session);
+
     ResponseEntity<String> deleteById(Long id, HttpSession session);
 }

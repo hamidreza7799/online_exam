@@ -8,12 +8,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
-public class QuestionDTO {
+public abstract class QuestionDTO {
     private Long id;
     private String title;
     private String questionText;
-    private String answerText;
-    private List<QuestionChoiceDTO> questionChoice;
 
     public Long getId() {
         return id;
@@ -37,21 +35,5 @@ public class QuestionDTO {
 
     public void setQuestionText(String questionText) {
         this.questionText = questionText;
-    }
-
-    public String getAnswerText() {
-        return answerText;
-    }
-
-    public void setAnswerText(String answerText) {
-        this.answerText = answerText;
-    }
-
-    public List<QuestionChoiceDTO> getQuestionChoice() {
-        return questionChoice;
-    }
-
-    public void setQuestionChoice(List<QuestionChoiceDTO> questionChoice) {
-        this.questionChoice = questionChoice;
     }
 }
