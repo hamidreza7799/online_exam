@@ -33,7 +33,7 @@ public class ExamController {
     public ResponseEntity<String> createNewExam(@PathVariable Long courseId, @RequestBody ExamDTO examDTO){
         //TODO FIX EXCEPTIONS
         try{
-            Exam exam = this.convertToEntity(examDTO);
+            Exam exam = examService.convertToEntity(examDTO);
             Optional<Course> course = courseService.findById(courseId);
             if(course.isEmpty())
                 return ResponseEntity.badRequest().body("Course id not found");
@@ -63,31 +63,18 @@ public class ExamController {
 
     @GetMapping("/{courseId}/{examId}")
     public ResponseEntity<ExamDTO> getExamById(@PathVariable Long courseId, @PathVariable Long examId){
-        Optional<Exam> exam = examService.findById(examId);
-        if(exam.isEmpty())
+        Optional<ExamDTO> examDTO = examService.findByExamId(examId);
+        if(examDTO.isEmpty())
             return ResponseEntity.notFound().build();
         else
-            if(exam.get().getCourse().getId().equals(courseId))
-                return ResponseEntity.ok().body(this.convertToDTO(exam.get()));
-            else
-                return ResponseEntity.badRequest().build();
+            //TODO WHY I AM GET COURSE ID?!
+            return ResponseEntity.ok(examDTO.get());
     }
 
     @GetMapping("/{courseId}")
     public List<ExamDTO> getAllExams(@PathVariable Long courseId){
         //TODO change dto for all exams (return less information)
-        return examService
-                .findByCourseId(courseId)
-                .stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
-    }
+        return examService.findByCourseId(courseId);
 
-    private ExamDTO convertToDTO(Exam exam){
-        return modelMapper.map(exam, ExamDTO.class);
-    }
-
-    private Exam convertToEntity(ExamDTO examDTO) throws DateTimeParseException{
-        return modelMapper.map(examDTO, Exam.class);
     }
 }

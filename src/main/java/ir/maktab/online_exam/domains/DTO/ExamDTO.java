@@ -14,29 +14,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class ExamDTO implements Serializable {
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private Long id;
     private String title;
     private String description;
     private Long time;
     private String startDateTime;
     private String endDateTime;
-
-    public LocalDateTime getStartDateTimeConverted() throws DateTimeParseException {
-        return LocalDateTime.parse(this.startDateTime, formatter);
-    }
-
-    public void setStartDateTime(LocalDateTime dateTime){
-        this.startDateTime = dateTime.format(formatter);
-    }
-
-    public LocalDateTime getEndDateTimeConverted() throws DateTimeParseException {
-        return LocalDateTime.parse(this.endDateTime, formatter);
-    }
-
-    public void setEndDateTime(LocalDateTime dateTime){
-        this.endDateTime = dateTime.format(formatter);
-    }
 
     public Long getId() {
         return id;
@@ -89,7 +72,6 @@ public class ExamDTO implements Serializable {
     @Override
     public String toString() {
         return "ExamDTO{" +
-                "formatter=" + formatter +
                 ", id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
