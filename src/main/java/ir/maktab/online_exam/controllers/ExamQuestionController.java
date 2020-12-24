@@ -21,7 +21,7 @@ public class ExamQuestionController {
 
     @PostMapping("/{examId}")
     public ResponseEntity<ExamQuestionDTO> addQuestionForExam(@PathVariable Long examId,
-                                                              CreateExamQuestionDTO questionDTO, HttpSession session){
+                                                              @RequestBody CreateExamQuestionDTO questionDTO, HttpSession session){
 
         return examQuestionService.save(examId, questionDTO, session);
     }

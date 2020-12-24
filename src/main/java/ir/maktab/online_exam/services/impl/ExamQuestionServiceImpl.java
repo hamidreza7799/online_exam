@@ -65,7 +65,8 @@ public class ExamQuestionServiceImpl extends BaseServiceImpl<ExamQuestion, ExamQ
             return ResponseEntity.badRequest().build();
         examQuestion.setExam(exam.get());
         exam.get().getExamQuestions().add(examQuestion);
-        examService.save(exam.get());
+        this.save(examQuestion);
+        examQuestionDTO.setId(examQuestion.getId());
         return ResponseEntity.ok(examQuestionDTO);
     }
 
