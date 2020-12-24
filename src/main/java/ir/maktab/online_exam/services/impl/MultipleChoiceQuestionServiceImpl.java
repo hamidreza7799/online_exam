@@ -70,6 +70,7 @@ public class MultipleChoiceQuestionServiceImpl extends QuestionServiceImpl<Multi
                     );
                 });
         questionDTO.setQuestionChoice(questionChoiceDTOS);
+        questionDTO.setQuestionType("MultipleChoice");
         return questionDTO;
     }
 }

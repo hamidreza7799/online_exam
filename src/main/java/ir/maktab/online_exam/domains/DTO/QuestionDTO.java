@@ -12,6 +12,7 @@ public abstract class QuestionDTO {
     private Long id;
     private String title;
     private String questionText;
+    private String questionType;
 
     public Long getId() {
         return id;
@@ -35,5 +36,13 @@ public abstract class QuestionDTO {
 
     public void setQuestionText(String questionText) {
         this.questionText = questionText;
+    }
+
+    public String getQuestionType() {
+        return questionType;
+    }
+
+    public void setQuestionType(String questionType) {
+        this.questionType = questionType;
     }
 }

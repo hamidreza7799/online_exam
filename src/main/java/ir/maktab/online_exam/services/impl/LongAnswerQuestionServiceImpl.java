@@ -39,6 +39,8 @@ public class LongAnswerQuestionServiceImpl extends QuestionServiceImpl<LongAnswe
 
     @Override
     public LongAnswerQuestionDTO convertToDTO(LongAnswerQuestion question) {
-        return modelMapper.map(question, LongAnswerQuestionDTO.class);
+        LongAnswerQuestionDTO questionDTO = modelMapper.map(question, LongAnswerQuestionDTO.class);
+        questionDTO.setQuestionType("LongAnswer");
+        return questionDTO;
     }
 }

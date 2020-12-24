@@ -34,4 +34,10 @@ public class RedirectController {
         response.addCookie(courseIdCookie);
         return "course_page";
     }
+
+    @GetMapping("/question-page")
+    public String sendQuestionPage(){
+        return "question_page";
+    }
+
 }

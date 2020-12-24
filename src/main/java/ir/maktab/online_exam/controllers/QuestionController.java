@@ -22,13 +22,11 @@ import java.util.stream.Collectors;
 @RequestMapping("/questions")
 public class QuestionController {
 
-    private final ModelMapper modelMapper;
     private final MultipleChoiceQuestionService multipleChoiceQuestionService;
     private final LongAnswerQuestionService longAnswerQuestionService;
 
-    public QuestionController(ModelMapper modelMapper
-            , MultipleChoiceQuestionService multipleChoiceQuestionService, LongAnswerQuestionService longAnswerQuestionService) {
-        this.modelMapper = modelMapper;
+    public QuestionController(MultipleChoiceQuestionService multipleChoiceQuestionService,
+                              LongAnswerQuestionService longAnswerQuestionService) {
         this.multipleChoiceQuestionService = multipleChoiceQuestionService;
         this.longAnswerQuestionService = longAnswerQuestionService;
     }
