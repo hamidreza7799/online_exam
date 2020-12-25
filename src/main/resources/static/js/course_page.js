@@ -24,7 +24,7 @@ $(document).ready(function () {
                                     <p class="card-text">${examData.startDateTime}</p>
                                     <p class="card-text">${examData.endDateTime}</p>           
                                     <p class="card-text">${examData.time}</p>           
-                                    <a href="http://localhost:8080/course-page/${examData.id}" class="btn btn-primary">Course page</a>
+                                    <a href="http://localhost:8080/exam-page/${examData.id}" class="btn btn-primary">Exam page</a>
                                 </div>
                             </div>
                         </div>
@@ -88,7 +88,7 @@ $(document).ready(function () {
                                     <p class="card-text">${startDateTime}</p>
                                     <p class="card-text">${endDateTime}</p>           
                                     <p class="card-text">${examLength}</p>           
-                                    <a href="http://localhost:8080/course-page/${newExamId}" class="btn btn-primary">Course page</a>
+                                    <a href="http://localhost:8080/exam-page/${newExamId}" class="btn btn-primary">Exam page</a>
                                 </div>
                             </div>
                         </div>

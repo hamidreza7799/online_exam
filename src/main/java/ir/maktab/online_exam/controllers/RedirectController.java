@@ -35,6 +35,13 @@ public class RedirectController {
         return "course_page";
     }
 
+    @GetMapping("/exam-page/{examId}")
+    public String sendExamPage(@PathVariable Long examId, HttpServletResponse response){
+        Cookie courseIdCookie = new Cookie("examId", examId.toString());
+        response.addCookie(courseIdCookie);
+        return "exam_page";
+    }
+
     @GetMapping("/question-page")
     public String sendQuestionPage(){
         return "question_page";
