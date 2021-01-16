@@ -17,4 +17,9 @@ public class CourseServiceImpl extends BaseServiceImpl<Course, CourseRepository>
         super(repository);
         this.repository = repository;
     }
+
+    @Override
+    public Boolean courseHaveStudent(Long courseId, Long userId) {
+        return repository.courseHaveStudent(courseId, userId);
+    }
 }

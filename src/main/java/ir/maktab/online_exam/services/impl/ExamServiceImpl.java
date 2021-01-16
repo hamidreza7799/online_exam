@@ -2,15 +2,22 @@ package ir.maktab.online_exam.services.impl;
 
 import ir.maktab.online_exam.base.service.impl.BaseServiceImpl;
 import ir.maktab.online_exam.domains.DTO.ExamDTO;
+import ir.maktab.online_exam.domains.DTO.ExamQuestionDTO;
 import ir.maktab.online_exam.domains.Exam;
+import ir.maktab.online_exam.domains.ExamQuestion;
 import ir.maktab.online_exam.repositories.ExamRepository;
+import ir.maktab.online_exam.services.CourseService;
+import ir.maktab.online_exam.services.ExamQuestionService;
 import ir.maktab.online_exam.services.ExamService;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,11 +27,15 @@ public class ExamServiceImpl extends BaseServiceImpl<Exam, ExamRepository> imple
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private final ExamRepository repository;
     private final ModelMapper modelMapper;
+    private final CourseService courseService;
+    private final ExamQuestionService examQuestionService;
 
-    public ExamServiceImpl(ExamRepository repository, ModelMapper modelMapper) {
+    public ExamServiceImpl(ExamRepository repository, ModelMapper modelMapper, CourseService courseService, ExamQuestionService examQuestionService) {
         super(repository);
         this.repository = repository;
         this.modelMapper = modelMapper;
+        this.courseService = courseService;
+        this.examQuestionService = examQuestionService;
     }
 
     @Override
@@ -48,6 +59,34 @@ public class ExamServiceImpl extends BaseServiceImpl<Exam, ExamRepository> imple
             return Optional.empty();
         else
             return Optional.of(this.convertToDTO(exam.get()));
+    }
+
+    @Override
+    public ResponseEntity<List<ExamQuestionDTO>> examQuestions(Long examId, HttpSession session) {
+        Optional<Exam> customExam = super.findById(examId);
+        if(customExam.isEmpty())
+            //TODO return exception
+            return ResponseEntity.badRequest().build();
+        if(!courseService.courseHaveStudent(customExam.get().getCourse().getId(), (Long) session.getAttribute("userId")))
+            //TODO return exception
+            return ResponseEntity.badRequest().build();
+        if(customExam.get().getStartDateTime().isAfter(LocalDateTime.now()))
+            //TODO return exception
+            return ResponseEntity.badRequest().build();
+        if(customExam.get().getEndDateTime().isBefore(LocalDateTime.now()))
+            //TODO return exception
+            return ResponseEntity.badRequest().build();
+        //TODO check user take exam last or no
+        return ResponseEntity.ok(
+                customExam
+                        .get()
+                        .getExamQuestions()
+                        .stream()
+                        .map(examQuestionService::convertToDTO)
+                        .collect(Collectors.toList())
+        );
+
+
     }
 
     @Override
