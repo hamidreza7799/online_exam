@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
 
-public interface BaseService<E extends BaseEntity, Repository extends BaseRepository<E>> {
+public interface BaseService<E, Repository extends BaseRepository<E>> {
 
     E save(E e);
 

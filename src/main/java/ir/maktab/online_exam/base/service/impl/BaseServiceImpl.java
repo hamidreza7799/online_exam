@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-public class BaseServiceImpl<E extends BaseEntity, Repository extends BaseRepository<E>> implements BaseService<E, Repository> {
+public class BaseServiceImpl<E, Repository extends BaseRepository<E>> implements BaseService<E, Repository> {
     protected BaseRepository<E> repository;
 
     public BaseServiceImpl(Repository repository){
